@@ -137,16 +137,18 @@ class Seanstrument(object):
 
     # Remap notes in real time (for MIDI input mode)
     def input_callback(self, event, data=None):
+        self.now = time.time()
         msg, deltatime = event
         status, note, velocity = msg
         if velocity > 0:
             self.notes[note] = random.randint(21, 108)
             msg = [status, self.notes[note], velocity]
         else:
-            status, note, velocity = message
+            status, note, velocity = msg
             if note in self.notes:
                 msg = [status, self.notes[note], velocity]
                 self.notes.pop(note)
+        logging.info(f"[{self.now}] {msg}")
         self.midi_out.send_message(msg)
 
 # Main function
