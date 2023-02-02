@@ -43,7 +43,7 @@ parser = argparse.ArgumentParser(
                     prog = "Seanstrument",
                     description = "Generate random midi output")
 
-parser.add_argument("-i", "--midi-input", default=False, help="Indicates if MIDI input is to be used")
+parser.add_argument("-i", "--midi-input", action="store_true", help="Indicates if MIDI input is to be used")
 parser.add_argument("-p", "--input-port", default=None, help="Port to be used for MIDI input")
 parser.add_argument("-d", "--max-duration", default=2, help="Maximum duration of a note, in seconds")
 parser.add_argument("-n", "--max-notes", default=3, help="Maximum number of notes that can be played simultaneously")
