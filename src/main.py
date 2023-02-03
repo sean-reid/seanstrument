@@ -76,6 +76,11 @@ class Seanstrument(object):
 
     # Wrap up midi objects when context is closed
     def __exit__(self, exc_type, exc_val, exc_tb):
+        # Turn off all midi notes
+        for note in self.notes:
+            msg = [NOTE_OFF, note, 0]
+            self.midi_out.send_message(msg)
+        # Wrap up MIDI objects
         self.midi_out.close_port()
         del self.midi_out
         if self.midi_input:
