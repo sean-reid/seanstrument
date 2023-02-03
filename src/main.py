@@ -56,9 +56,9 @@ class Seanstrument(object):
     # Initialize midi parameters and midi input/outputs
     def __init__(self, args):
         self.midi_input = args.midi_input
-        self.max_duration = args.max_duration
-        self.max_notes = args.max_notes
-        self.time_step = args.time_step
+        self.max_duration = float(args.max_duration)
+        self.max_notes = int(args.max_notes)
+        self.time_step = float(args.time_step)
         self.clock = time.time()
         self.notes = {}
         try:
