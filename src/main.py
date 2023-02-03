@@ -44,10 +44,11 @@ parser = argparse.ArgumentParser(
                     description = "Generate random midi output")
 
 parser.add_argument("-i", "--midi-input", action="store_true", help="Indicates if MIDI input is to be used")
-parser.add_argument("-p", "--input-port", default=None, help="Port to be used for MIDI input")
-parser.add_argument("-d", "--max-duration", default=2, help="Maximum duration of a note, in seconds")
-parser.add_argument("-n", "--max-notes", default=3, help="Maximum number of notes that can be played simultaneously")
-parser.add_argument("-s", "--time-step", default=0.05, help="Time step, in seconds")
+parser.add_argument("-p", "--input-port", default=None, type=int, help="Port to be used for MIDI input")
+parser.add_argument("-d", "--max-duration", default=2, type=float, help="Maximum duration of a note, in seconds")
+parser.add_argument("-n", "--max-notes", default=3, type=int, help="Maximum number of notes that can be played simultaneously")
+parser.add_argument("-s", "--time-step", default=0.05, type=float, help="Time step, in seconds")
+parser.add_argument("-r", "--note-range", default=[21, 108], nargs=2, type=int, help="Range of MIDI note values [provide an upper and lower bound, separated by spaces]")
 
 
 # Class Seanstrument implements a virtual MIDI instrument, that can either remap the keys of an actual MIDI instrument randomly, or generate random music.
@@ -56,9 +57,10 @@ class Seanstrument(object):
     # Initialize midi parameters and midi input/outputs
     def __init__(self, args):
         self.midi_input = args.midi_input
-        self.max_duration = float(args.max_duration)
-        self.max_notes = int(args.max_notes)
-        self.time_step = float(args.time_step)
+        self.max_duration = args.max_duration
+        self.max_notes = args.max_notes
+        self.time_step = args.time_step
+        self.note_range = args.note_range
         self.clock = time.time()
         self.notes = {}
         try:
@@ -135,7 +137,7 @@ class Seanstrument(object):
     def generate_note(self):
         if len(self.notes) >= self.max_notes:
             return None
-        note = random.randint(21, 108)
+        note = random.randint(*self.note_range)
         if note in self.notes:
             note = self.generate_note()
         return note
@@ -146,7 +148,7 @@ class Seanstrument(object):
         msg, deltatime = event
         status, note, velocity = msg
         if velocity > 0:
-            self.notes[note] = random.randint(21, 108)
+            self.notes[note] = random.randint(*self.note_range)
             msg = [status, self.notes[note], velocity]
         else:
             status, note, velocity = msg
