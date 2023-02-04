@@ -4,9 +4,9 @@ Seanstrument: random music generation
 
 This main.py script either randomly rempas MIDI notes in real time, or randomly generates MIDI messages, depending on the mode.
 
-Call the code in the following way (ex. for music generation mode):
+Call the code in the following way (i.e. for music generation mode):
 
-    ./main.py --midi-input False --input-port None --max-duration 3.2 --max-notes 11 --time-step 0.1
+    ./main.py --max-duration 3.2 --max-notes 11 --time-step 0.1 --note-range 40 70
 
 Inputs:
     --midi-input: Indicates if MIDI input is to be used
@@ -14,6 +14,7 @@ Inputs:
     --max-duration: Maximum duration of a note, in seconds
     --max-notes: Maximum number of notes that can be played simultaneously
     --time-step: Time step, in seconds
+    --note-range: MIDI note values, lower and upper bound
 
 Outputs:
     Virtual MIDI output, exposed for use in Garageband, Logic, etc.
