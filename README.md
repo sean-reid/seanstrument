@@ -1,6 +1,8 @@
 # Seanstrument
 Remapping midi notes randomly, and in real time
 
+<a href="https://www.buymeacoffee.com/seanreid" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+
 ## Setup Environment
 Run this to activate your virtual environment:
 ```
